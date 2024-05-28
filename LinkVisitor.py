@@ -22,7 +22,6 @@ def open_url_with_proxy(url, proxy_address):
         print(f"Opened {url} with proxy {proxy_address}")
         driver.quit()
     except Exception as e:
-        print(f"Error: {e}")
         print(f"Could not open {url} with proxy {proxy_address}")
         pass
 
@@ -38,7 +37,7 @@ x = int(sys.argv[2])
 
 for i in range(x):
     proxy_addresses = requests.get(f'https://proxylist.geonode.com/api/proxy-list?limit={x}&page=1&sort_by=lastChecked&sort_type=desc').json()['data']
-    proxy_address = proxy_addresses[i]['ip']
+    proxy_address = proxy_addresses[i]['ip'] + ":" + proxy_addresses[i]['port']
     print(f"Trying proxy {proxy_address}")
     open_url_with_proxy(link, proxy_address)
     print("Iteration " + str(i) + " done.")
